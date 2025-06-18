@@ -1,12 +1,9 @@
 package br.org.catolicasc.biblioteca.controller;
 
-import br.org.catolicasc.biblioteca.bean.Author;
 import br.org.catolicasc.biblioteca.dto.AuthorDTO;
 import br.org.catolicasc.biblioteca.service.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,11 +11,35 @@ import java.util.List;
 @RequestMapping("/author")
 public class AuthorController {
 
-    @Autowired
-    private AuthorService service;
+    private final AuthorService authorService;
+
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @GetMapping
-    public List<AuthorDTO> authorList() {
-        return service.findAllAuthor();
+    public ResponseEntity<List<AuthorDTO>> authorList() {
+        List<AuthorDTO> authors = authorService.findAllAuthor();
+        return ResponseEntity.ok(authors);
+    }
+
+    @GetMapping("/{id}")
+    public AuthorDTO getAuthorById(@PathVariable Long id){
+        return authorService.getAuthorById(id);
+    }
+
+    @PostMapping
+    public AuthorDTO createAuthor(){
+        return null;
+    }
+
+    @PutMapping("/{id}")
+    public AuthorDTO updateAuthor(){
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public AuthorDTO deleteAuthor() {
+        return null;
     }
 }
