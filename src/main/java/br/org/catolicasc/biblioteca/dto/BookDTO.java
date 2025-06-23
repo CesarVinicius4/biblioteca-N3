@@ -9,7 +9,18 @@ public class BookDTO {
     private String title;
     private String isbn;
     private int quantity;
-    private Author author;
+    private AuthorDTO author;
+
+    public BookDTO() {
+    }
+
+    public BookDTO(Long id, String title, String isbn, int quantity, AuthorDTO author) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+        this.quantity = quantity;
+        this.author = author;
+    }
 
     public Long getId() {
         return id;
@@ -43,21 +54,40 @@ public class BookDTO {
         this.quantity = quantity;
     }
 
-    public Author getAuthor() {
+    public AuthorDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(AuthorDTO author) {
         this.author = author;
     }
 
-    public BookDTO toBook(Book book) {
+    public static Book toEntity(BookDTO dto) {
         Book book = new Book();
-        book.setTitle(book.getTitle());
-        book.setIsbn(book.getIsbn());
-        book.setQuantity(book.getQuantity());
-        book.setAuthor(book.getAuthor());
+        book.setTitle(dto.getTitle());
+        book.setIsbn(dto.getIsbn());
+        book.setQuantity(dto.getQuantity());
+
+        if (dto.getAuthor() != null) {
+            book.setAuthor(AuthorDTO.toEntity(dto.getAuthor()));
+        }
+
         return book;
+    }
+
+    public static BookDTO fromEntity(Book book) {
+        AuthorDTO authorDTO = null;
+        if (book.getAuthor() != null) {
+            authorDTO = AuthorDTO.fromEntity(book.getAuthor());
+        }
+
+        return new BookDTO(
+                book.getId(),
+                book.getTitle(),
+                book.getIsbn(),
+                book.getQuantity(),
+                authorDTO
+        );
     }
 
 }

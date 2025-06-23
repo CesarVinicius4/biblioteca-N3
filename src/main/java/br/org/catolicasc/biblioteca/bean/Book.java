@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private String title;
     @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
     private Author author;
     private String isbn;
     private int quantity;

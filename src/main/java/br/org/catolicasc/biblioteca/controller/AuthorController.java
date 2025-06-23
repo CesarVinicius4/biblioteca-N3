@@ -29,17 +29,19 @@ public class AuthorController {
     }
 
     @PostMapping
-    public AuthorDTO createAuthor(){
-        return null;
+    public AuthorDTO createAuthor(@RequestBody AuthorDTO authorDTO){
+        return authorService.createAuthor(authorDTO);
     }
 
     @PutMapping("/{id}")
-    public AuthorDTO updateAuthor(){
-        return null;
+    public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable Long id, @RequestBody AuthorDTO dto) {
+        AuthorDTO updated = authorService.updateAuthor(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public AuthorDTO deleteAuthor() {
-        return null;
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
+        authorService.deleteAuthor(id);
+        return ResponseEntity.noContent().build();
     }
 }

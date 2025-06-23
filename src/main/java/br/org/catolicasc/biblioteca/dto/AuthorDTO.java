@@ -1,6 +1,8 @@
 package br.org.catolicasc.biblioteca.dto;
 
 
+import br.org.catolicasc.biblioteca.bean.Author;
+
 public class AuthorDTO {
     private Long id;
     private String name;
@@ -26,5 +28,15 @@ public class AuthorDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static AuthorDTO fromEntity(Author author) {
+        return new AuthorDTO(author.getId(), author.getName());
+    }
+
+    public static Author toEntity(AuthorDTO dto) {
+        Author author = new Author();
+        author.setName(dto.getName());
+        return author;
     }
 }

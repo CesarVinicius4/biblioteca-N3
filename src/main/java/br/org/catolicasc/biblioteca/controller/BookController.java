@@ -1,9 +1,7 @@
 package br.org.catolicasc.biblioteca.controller;
 
-import br.org.catolicasc.biblioteca.bean.Book;
 import br.org.catolicasc.biblioteca.dto.BookDTO;
 import br.org.catolicasc.biblioteca.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,28 +17,27 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDTO> listAll(){
+    public List<BookDTO> listAll() {
         return bookService.findAllBooks();
     }
 
     @GetMapping("/{id}")
-    public BookDTO getBookById(@PathVariable Long id){
+    public BookDTO getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        return bookService.createBook(book);
+    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
+        return bookService.createBook(bookDTO);
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book book){
-        return bookService.updateBook(id, book);
+    public BookDTO updateBook(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+        return bookService.updateBook(id, bookDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id){
+    public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
     }
-
 }
